@@ -3,7 +3,7 @@
  *
  * I2C-Generator: 0.3.0
  * Yaml Version: 1.1.0
- * Template Version: 0.7.0-78-g11fb280
+ * Template Version: 0.7.0-80-gf4d3b1b
  */
 /*
  * Copyright (c) 2021, Sensirion AG
@@ -41,7 +41,28 @@
 #include "SensirionCore.h"
 #include <Wire.h>
 
-#define SFM_SF06_I2C_ADDRESS 0x2A
+// i2c adresses; for proper configuration see datasheet
+
+//- SFM3003
+#define ADDR_SFM3003_300_CL 0x28
+#define ADDR_SFM3003_300_CE 0x2D
+
+//- SFM4300
+#define ADDR_SFM4300_A 0x2A
+#define ADDR_SFM4300_B 0x2A
+#define ADDR_SFM4300_C 0x2C
+#define ADDR_SFM4300_D 0x2D
+
+//- SFM3119
+#define ADDR_SFM3119 0x29
+
+//- SFM3013
+#define ADDR_SFM3013 0x2F
+
+//- SFM3019
+#define ADDR_SFM3019 0x2E
+
+#define SFM_SF06_I2C_ADDRESS ADDR_SFM3119
 
 SensirionI2CSfmSf06::SensirionI2CSfmSf06() {
 }
@@ -68,8 +89,10 @@ uint16_t SensirionI2CSfmSf06::startAirContinuousMeasurement() {
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x3608, buffer, 2);
 
-    return SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
-                                                *_i2cBus);
+    error = SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
+                                                 *_i2cBus);
+    delay(12);
+    return error;
 }
 
 uint16_t SensirionI2CSfmSf06::startN2oContinuousMeasurement() {
@@ -153,22 +176,13 @@ SensirionI2CSfmSf06::startC0202ContinuousMeasurement(uint16_t volumeFraction) {
     return error;
 }
 
-uint16_t SensirionI2CSfmSf06::readMeasurementData(int16_t& flow,
-                                                  int16_t& temperature,
-                                                  uint16_t& statusWord) {
+uint16_t SensirionI2CSfmSf06::readMeasurementDataRaw(int16_t& flow,
+                                                     int16_t& temperature,
+                                                     uint16_t& statusWord) {
     uint16_t error = 0;
     uint8_t buffer[9];
-    SensirionI2CTxFrame txFrame =
-        SensirionI2CTxFrame::createWithUInt16Command(0xFFFF, buffer, 9);
 
-    error = SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
-                                                 *_i2cBus);
-    if (error) {
-        return error;
-    }
-
-    delay(1);
-
+    // nothing has to be written at this point
     SensirionI2CRxFrame rxFrame(buffer, 9);
     error = SensirionI2CCommunication::receiveFrame(SFM_SF06_I2C_ADDRESS, 9,
                                                     rxFrame, *_i2cBus);
@@ -179,6 +193,23 @@ uint16_t SensirionI2CSfmSf06::readMeasurementData(int16_t& flow,
     error |= rxFrame.getInt16(flow);
     error |= rxFrame.getInt16(temperature);
     error |= rxFrame.getUInt16(statusWord);
+    return error;
+}
+
+uint16_t SensirionI2CSfmSf06::readMeasurementData(float& flow,
+                                                  float& temperature,
+                                                  uint16_t& statusWord) {
+    int16_t intFlow = 0;
+    int16_t intTemperature = 0;
+    flow = 0.0;
+    temperature = 0.0;
+
+    uint16_t error =
+        readMeasurementDataRaw(intFlow, intTemperature, statusWord);
+    if (!error) {
+        flow = (intFlow - _flowOffset) / _flowScaleFactor;
+        temperature = intTemperature / 200.0;
+    }
     return error;
 }
 
@@ -204,8 +235,17 @@ uint16_t SensirionI2CSfmSf06::updateConcentrationActivate() {
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0xE000, buffer, 2);
 
-    return SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
-                                                *_i2cBus);
+    error = SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
+                                                 *_i2cBus);
+    return error;
+}
+
+uint16_t SensirionI2CSfmSf06::updateConcentration(uint16_t volumeFraction) {
+    uint16_t error = updateConcentrationSet(volumeFraction);
+    if (error) {
+        return error;
+    }
+    return updateConcentrationActivate();
 }
 
 uint16_t SensirionI2CSfmSf06::stopContinuousMeasurement() {
@@ -214,8 +254,9 @@ uint16_t SensirionI2CSfmSf06::stopContinuousMeasurement() {
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x3FF9, buffer, 2);
 
-    return SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
-                                                *_i2cBus);
+    error = SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
+                                                 *_i2cBus);
+    return error;
 }
 
 uint16_t SensirionI2CSfmSf06::configureAveraging(uint16_t averageWindow) {
@@ -234,13 +275,19 @@ uint16_t SensirionI2CSfmSf06::configureAveraging(uint16_t averageWindow) {
                                                 *_i2cBus);
 }
 
-uint16_t SensirionI2CSfmSf06::readScaleOffsetFlow(int16_t& flowScaleFactor,
+uint16_t SensirionI2CSfmSf06::readScaleOffsetFlow(CommandCode commandCode,
+                                                  int16_t& flowScaleFactor,
                                                   int16_t& flowOffset,
                                                   uint16_t& flowUnit) {
     uint16_t error = 0;
     uint8_t buffer[9];
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x3661, buffer, 9);
+
+    error |= txFrame.addUInt16(static_cast<uint16_t>(commandCode));
+    if (error) {
+        return error;
+    }
 
     error = SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
                                                  *_i2cBus);
@@ -260,27 +307,31 @@ uint16_t SensirionI2CSfmSf06::readScaleOffsetFlow(int16_t& flowScaleFactor,
     error |= rxFrame.getInt16(flowScaleFactor);
     error |= rxFrame.getInt16(flowOffset);
     error |= rxFrame.getUInt16(flowUnit);
+    if (!error) {
+        _flowOffset = flowOffset;
+        _flowScaleFactor = flowScaleFactor;
+    }
     return error;
 }
 
 uint16_t SensirionI2CSfmSf06::enterSleep() {
-    uint16_t error = 0;
     uint8_t buffer[2];
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x3677, buffer, 2);
 
-    return SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
-                                                *_i2cBus);
+    SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
+                                         *_i2cBus);
+    return 0;
 }
 
 uint16_t SensirionI2CSfmSf06::exitSleep() {
-    uint16_t error = 0;
     uint8_t buffer[2];
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x00, buffer, 2);
 
-    return SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
-                                                *_i2cBus);
+    SensirionI2CCommunication::sendFrame(SFM_SF06_I2C_ADDRESS, txFrame,
+                                         *_i2cBus);
+    return 0;
 }
 
 uint16_t SensirionI2CSfmSf06::readProductIdentifier(uint32_t& productIdentifier,

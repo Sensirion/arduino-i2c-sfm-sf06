@@ -3,11 +3,14 @@
 This is the Sensirion SFM_SF06 library for Arduino using the
 modules I2C interface.
 
-TODO: DRIVER_GENERATOR Add image of sensor / eval kit as images/sfm-sf06.jpg
-[<center><img src="images/SFM-SF06.png" width="300px"></center>](TODO: DRIVER_GENERATOR add url to the eval kit)
+[<center><img src="images/SFM4300.png" width="300px"></center>](https://www.sensirion.com)
 
-Click [here](TODO: DRIVER_GENERATOR Add url to the eval kit) to learn more about the SFM_SF06
-sensor and the SFM_SF06 Evaluation Kit Board.
+To learn more about the sensors of the familiy SFM SF06 see the following data sheets:
+* Sensor [SFM3003](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3003_Datasheet.pdf)
+* Sensor [SFM4300](https://www.sensirion.com)
+* Sensor [SFM3119](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3119_Datasheet.pdf)
+* Sensor [SFM3013](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3013_Datasheet.pdf)
+* Sensor [SFM3019](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3019_Datasheet.pdf)
 
 
 # Installation
@@ -31,16 +34,16 @@ Note: Installation via the Arduino Library Manager is coming soon.
 
 1. Connect the SFM_SF06 Sensor to your Arduino board's standard
    I2C bus. Check the pinout of your Arduino board to find the correct pins.
-   The pinout of the SFM_SF06 Sensor board can be found in the
+   The pinout of the SFM_SF06 Sensor board can be found in the relevant
    data sheet.
 
    | *SFM_SF06* |   *Arduino*    | *Jumper Wire* |
    |---------|----------------|---------------|
-   |   VDD   |       xV       |     Red       |  TODO: DRIVER_GENERATOR Add correct voltage
+   |   VDD   |       xV       |     Red       |  
    |   GND   |       GND      |     Black     |
    |   SDA   |       SDA      |     Green     |
    |   SCL   |       SCL      |     Yellow    |
-   |   SEL   |   GND for I2C  |     Blue      |  TODO: DRIVER_GENERATOR Remove if not available for your sensor
+   |   SEL   |   GND for I2C  |     Blue      |  only applicable for SMF4300
 
 
 2. Open the `exampleUsage` sample project within the Arduino IDE

@@ -3,7 +3,7 @@
  *
  * I2C-Generator: 0.3.0
  * Yaml Version: 1.1.0
- * Template Version: 0.7.0-78-g11fb280
+ * Template Version: 0.7.0-80-gf4d3b1b
  */
 /*
  * Copyright (c) 2021, Sensirion AG
@@ -43,6 +43,16 @@
 
 #include <SensirionCore.h>
 
+typedef enum {
+    CmdO2measurement = 0x3603,
+    CmdAirMeasurement = 0x3608,
+    CmdNo2Measurement = 0x3615,
+    CmdCo2Measurement = 0x361E,
+    CmdAirO2Measurement = 0x3632,
+    CmdNo2O2Measurement = 0x3639,
+    CmdCo2O2Measurement = 0x3646
+} CommandCode;
+
 class SensirionI2CSfmSf06 {
 
   public:
@@ -65,7 +75,7 @@ class SensirionI2CSfmSf06 {
       - SFM3003
       - SFM4300
       - SFM3119
-      - SFM3012
+      - SFM3013
       - SFM3019
 
      *
@@ -88,7 +98,7 @@ class SensirionI2CSfmSf06 {
       - SFM3003
       - SFM4300
       - SFM3119
-      - SFM3012
+      - SFM3013
       - SFM3019
 
      *
@@ -152,7 +162,7 @@ class SensirionI2CSfmSf06 {
       - SFM3003
       - SFM4300
       - SFM3119
-      - SFM3012
+      - SFM3013
       - SFM3019
 
      *
@@ -199,7 +209,7 @@ class SensirionI2CSfmSf06 {
     uint16_t startC0202ContinuousMeasurement(uint16_t volumeFraction);
 
     /**
-     * readMeasurementData() - After the command
+     * readMeasurementDataRaw() - After the command
     *start_xx_continuous_measurement* has been sent, the chip continuously
     measures and updates the measurement results. New results (flow,
     temperature, and status word) can be read continuously with this command.
@@ -224,7 +234,23 @@ class SensirionI2CSfmSf06 {
      *
      * @return 0 on success, an error code otherwise
      */
-    uint16_t readMeasurementData(int16_t& flow, int16_t& temperature,
+    uint16_t readMeasurementDataRaw(int16_t& flow, int16_t& temperature,
+                                    uint16_t& statusWord);
+
+    /**
+     * readMeasurementData() - Executes the function readMeasurementDataRaw(..)
+     * and returns the signals transormed according to the actual settings of
+     * the sensor-
+     *
+     *  @param flow Calibrated flow signal with applied scaling and offset
+     *
+     *  @param temperator Calibrated temperature with applied scaling
+     *
+     *  @param statusWord Staus of the sensor
+     *
+     *  @return 0 on success, en error otherwise
+     */
+    uint16_t readMeasurementData(float& flow, float& temperature,
                                  uint16_t& statusWord);
 
     /**
@@ -257,6 +283,17 @@ class SensirionI2CSfmSf06 {
      * @return 0 on success, an error code otherwise
      */
     uint16_t updateConcentrationActivate(void);
+
+    /**
+     * Combines the two methods updateConcentrationSet and updateConcentration
+     *
+     *
+     * @param volumeFraction New O₂ volume fraction
+
+     *
+     * @return 0 on success, an error code otherwise
+     */
+    uint16_t updateConcentration(uint16_t volumeFraction);
 
     /**
      * stopContinuousMeasurement() - This command stops the continuous
@@ -300,6 +337,10 @@ class SensirionI2CSfmSf06 {
     data-sheet.
 
      *
+     * @param commandCode Code of measurement from which we want to have that
+    information.
+
+     *
      * @param flowScaleFactor Scale factor used by the sensor.
 
      *
@@ -311,7 +352,8 @@ class SensirionI2CSfmSf06 {
      *
      * @return 0 on success, an error code otherwise
      */
-    uint16_t readScaleOffsetFlow(int16_t& flowScaleFactor, int16_t& flowOffset,
+    uint16_t readScaleOffsetFlow(CommandCode commandCode,
+                                 int16_t& flowScaleFactor, int16_t& flowOffset,
                                  uint16_t& flowUnit);
 
     /**
@@ -360,6 +402,8 @@ class SensirionI2CSfmSf06 {
 
   private:
     TwoWire* _i2cBus = nullptr;
+    int16_t _flowOffset = 0;
+    int16_t _flowScaleFactor = 1;
 };
 
 #endif /* SENSIRIONI2CSFM_SF06_H */

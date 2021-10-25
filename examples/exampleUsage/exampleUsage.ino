@@ -40,8 +40,6 @@
 
 SensirionI2CSfmSf06 sfmSf06;
 
-// TODO: DRIVER_GENERATOR Add missing commands and make printout more pretty
-
 void setup() {
 
     Serial.begin(115200);
@@ -92,14 +90,42 @@ void setup() {
     }
 
     // Start Measurement
+    int16_t flowScale = 0;
+    int16_t flowOffset = 0;
+    uint16_t status = 0;
+
+    delay(2000);
+    error = sfmSf06.readScaleOffsetFlow(CmdO2measurement, flowScale, flowOffset,
+                                        status);
+    if (error) {
+        Serial.print("error: ");
+        errorToString(error, errorMessage, 256);
+        Serial.println(errorMessage);
+    }
+    Serial.print("flow scale factor = ");
+    Serial.println(flowScale);
+
+    Serial.print("flow offset = ");
+    Serial.println(flowOffset);
+
+    sfmSf06.startO2ContinuousMeasurement();
 }
 
 void loop() {
     uint16_t error;
     char errorMessage[256];
+    float flow = 0;
+    float temperature = 0;
+    uint16_t status = 0;
 
-    // TODO: DRIVER_GENERATOR Adjust measurement delay
-    delay(1000);
-    // TODO: DRIVER_GENERATOR Add scale and offset to printed measurement values
     // Read Measurement
+    error = sfmSf06.readMeasurementData(flow, temperature, status);
+    delay(1000);
+    if (!error) {
+        Serial.print("** ");
+        Serial.print("flow: ");
+        Serial.println(flow);
+        Serial.print("   temperature: ");
+        Serial.println(temperature);
+    }
 }
