@@ -41,39 +41,25 @@
 #include "SensirionCore.h"
 #include <Wire.h>
 
-// i2c adresses; for proper configuration see datasheet
-
-//- SFM3003
-#define ADDR_SFM3003_300_CL 0x28
-#define ADDR_SFM3003_300_CE 0x2D
-
-//- SFM4300
-#define ADDR_SFM4300_A 0x2A
-#define ADDR_SFM4300_B 0x2A
-#define ADDR_SFM4300_C 0x2C
-#define ADDR_SFM4300_D 0x2D
-
-//- SFM3119
-#define ADDR_SFM3119 0x29
-
-//- SFM3013
-#define ADDR_SFM3013 0x2F
-
-//- SFM3019
-#define ADDR_SFM3019 0x2E
-
-#define SFM_SF06_I2C_ADDRESS ADDR_SFM3119
+#define SFM_SF06_I2C_ADDRESS _i2c_address
 
 SensirionI2CSfmSf06::SensirionI2CSfmSf06() {
 }
 
-void SensirionI2CSfmSf06::begin(TwoWire& i2cBus) {
+void SensirionI2CSfmSf06::begin(TwoWire& i2cBus, uint8_t i2c_address) {
     _i2cBus = &i2cBus;
+    _i2c_address = i2c_address;
 }
 
 uint16_t SensirionI2CSfmSf06::startO2ContinuousMeasurement() {
     uint16_t error = 0;
     uint8_t buffer[2];
+    error = readScaleOffsetFlow(CmdO2measurement, _flowScaleFactor, _flowOffset,
+                                _flowUnit);
+    if (error) {
+        return error;
+    }
+
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x3603, buffer, 2);
 
@@ -86,6 +72,12 @@ uint16_t SensirionI2CSfmSf06::startO2ContinuousMeasurement() {
 uint16_t SensirionI2CSfmSf06::startAirContinuousMeasurement() {
     uint16_t error = 0;
     uint8_t buffer[2];
+    error = readScaleOffsetFlow(CmdAirMeasurement, _flowScaleFactor,
+                                _flowOffset, _flowUnit);
+    if (error) {
+        return error;
+    }
+
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x3608, buffer, 2);
 
@@ -98,6 +90,11 @@ uint16_t SensirionI2CSfmSf06::startAirContinuousMeasurement() {
 uint16_t SensirionI2CSfmSf06::startN2oContinuousMeasurement() {
     uint16_t error = 0;
     uint8_t buffer[2];
+    error = readScaleOffsetFlow(CmdNo2Measurement, _flowScaleFactor,
+                                _flowOffset, _flowUnit);
+    if (error) {
+        return error;
+    }
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x3615, buffer, 2);
 
@@ -110,6 +107,11 @@ uint16_t SensirionI2CSfmSf06::startN2oContinuousMeasurement() {
 uint16_t SensirionI2CSfmSf06::startCo2ContinuousMeasurement() {
     uint16_t error = 0;
     uint8_t buffer[2];
+    error = readScaleOffsetFlow(CmdCo2Measurement, _flowScaleFactor,
+                                _flowOffset, _flowUnit);
+    if (error) {
+        return error;
+    }
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x361E, buffer, 2);
 
@@ -123,6 +125,12 @@ uint16_t
 SensirionI2CSfmSf06::startAirO2ContinuousMeasurement(uint16_t volumeFraction) {
     uint16_t error = 0;
     uint8_t buffer[5];
+
+    error = readScaleOffsetFlow(CmdAirO2Measurement, _flowScaleFactor,
+                                _flowOffset, _flowUnit);
+    if (error) {
+        return error;
+    }
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x3632, buffer, 5);
 
@@ -142,6 +150,12 @@ uint16_t
 SensirionI2CSfmSf06::startNo2O2ContinuousMeasurement(uint16_t volumeFraction) {
     uint16_t error = 0;
     uint8_t buffer[5];
+
+    error = readScaleOffsetFlow(CmdNo2O2Measurement, _flowScaleFactor,
+                                _flowOffset, _flowUnit);
+    if (error) {
+        return error;
+    }
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x3639, buffer, 5);
 
@@ -161,6 +175,12 @@ uint16_t
 SensirionI2CSfmSf06::startC0202ContinuousMeasurement(uint16_t volumeFraction) {
     uint16_t error = 0;
     uint8_t buffer[5];
+
+    error = readScaleOffsetFlow(CmdCo2O2Measurement, _flowScaleFactor,
+                                _flowOffset, _flowUnit);
+    if (error) {
+        return error;
+    }
     SensirionI2CTxFrame txFrame =
         SensirionI2CTxFrame::createWithUInt16Command(0x3646, buffer, 5);
 

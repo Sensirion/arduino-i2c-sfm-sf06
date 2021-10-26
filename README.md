@@ -1,16 +1,17 @@
-# Sensirion I2C SFM_SF06 Arduino Library
+# Sensirion I2C SFM-SF06 Arduino Library
 
-This is the Sensirion SFM_SF06 library for Arduino using the
-modules I2C interface.
+This is the Sensirion SFM-SF06 library for Arduino using the
+modules I2C interface. This driver allows to control all sensors of the SFM-SF06 sensor family. This family includes the products SFM3003, SFM4300, SFM3119, SFM3013, SFM3019.
 
-[<center><img src="images/SFM4300.png" width="300px"></center>](https://www.sensirion.com)
+[<center><img src="images/SFM4300.png" width="300px"></center>](https://www.sensirion.com/en/flow-sensors/)
 
-To learn more about the sensors of the familiy SFM SF06 see the following data sheets:
+To learn more about the sensors of the familiy SFM-SF06 see the following data sheets:
 * Sensor [SFM3003](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3003_Datasheet.pdf)
 * Sensor [SFM4300](https://www.sensirion.com)
 * Sensor [SFM3119](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3119_Datasheet.pdf)
 * Sensor [SFM3013](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3013_Datasheet.pdf)
 * Sensor [SFM3019](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3019_Datasheet.pdf)
+
 
 
 # Installation
@@ -32,23 +33,18 @@ Note: Installation via the Arduino Library Manager is coming soon.
 
 # Quick Start
 
-1. Connect the SFM_SF06 Sensor to your Arduino board's standard
+1. Connect the SFM-SF06 Sensor to your Arduino board's standard
    I2C bus. Check the pinout of your Arduino board to find the correct pins.
-   The pinout of the SFM_SF06 Sensor board can be found in the relevant
+   The pinout of the SFM-SF06 Sensor can be found in the relevant
    data sheet.
 
-   | *SFM_SF06* |   *Arduino*    | *Jumper Wire* |
-   |---------|----------------|---------------|
-   |   VDD   |       xV       |     Red       |  
-   |   GND   |       GND      |     Black     |
-   |   SDA   |       SDA      |     Green     |
-   |   SCL   |       SCL      |     Yellow    |
-   |   SEL   |   GND for I2C  |     Blue      |  only applicable for SMF4300
-
+The recommended voltage is 3.3V.
 
 2. Open the `exampleUsage` sample project within the Arduino IDE
 
-		File => Examples => Sensirion I2C SFM_SF06 => exampleUsage
+		File => examples => exampleUsage => exampleUsage.ino
+
+      Select the proper i2c address for your product as input parameter for the method *begin(..)*
 
 3. Click the `Upload` button in the Arduino IDE or
 

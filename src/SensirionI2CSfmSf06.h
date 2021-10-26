@@ -43,6 +43,27 @@
 
 #include <SensirionCore.h>
 
+// i2c adresses; for proper configuration see datasheet
+
+//- SFM3003
+#define ADDR_SFM3003_300_CL 0x28
+#define ADDR_SFM3003_300_CE 0x2D
+
+//- SFM4300
+#define ADDR_SFM4300_A 0x2A
+#define ADDR_SFM4300_B 0x2A
+#define ADDR_SFM4300_C 0x2C
+#define ADDR_SFM4300_D 0x2D
+
+//- SFM3119
+#define ADDR_SFM3119 0x29
+
+//- SFM3013
+#define ADDR_SFM3013 0x2F
+
+//- SFM3019
+#define ADDR_SFM3019 0x2E
+
 typedef enum {
     CmdO2measurement = 0x3603,
     CmdAirMeasurement = 0x3608,
@@ -63,7 +84,7 @@ class SensirionI2CSfmSf06 {
      * @param serial Arduino stream object to be communicated with.
      *
      */
-    void begin(TwoWire& i2cBus);
+    void begin(TwoWire& i2cBus, uint8_t i2c_address);
 
     /**
      * startO2ContinuousMeasurement() - The sensor starts measuring both O₂ flow
@@ -404,6 +425,8 @@ class SensirionI2CSfmSf06 {
     TwoWire* _i2cBus = nullptr;
     int16_t _flowOffset = 0;
     int16_t _flowScaleFactor = 1;
+    uint16_t _flowUnit = 0;
+    uint8_t _i2c_address = 0x0;
 };
 
 #endif /* SENSIRIONI2CSFM_SF06_H */

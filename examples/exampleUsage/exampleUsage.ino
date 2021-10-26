@@ -52,7 +52,7 @@ void setup() {
     uint16_t error;
     char errorMessage[256];
 
-    sfmSf06.begin(Wire);
+    sfmSf06.begin(Wire, ADDR_SFM3119);
 
     error = sfmSf06.stopContinuousMeasurement();
 
@@ -74,9 +74,7 @@ void setup() {
         errorToString(error, errorMessage, 256);
         Serial.println(errorMessage);
     } else {
-        Serial.print("ProductIdentifier:");
-        Serial.print(productIdentifier);
-        Serial.print("\t");
+
         Serial.print("SerialNumber:");
         Serial.print("0x");
         for (size_t i = 0; i < serialNumberSize; i++) {
@@ -89,26 +87,10 @@ void setup() {
         Serial.println();
     }
 
-    // Start Measurement
-    int16_t flowScale = 0;
-    int16_t flowOffset = 0;
-    uint16_t status = 0;
-
-    delay(2000);
-    error = sfmSf06.readScaleOffsetFlow(CmdO2measurement, flowScale, flowOffset,
-                                        status);
-    if (error) {
-        Serial.print("error: ");
-        errorToString(error, errorMessage, 256);
-        Serial.println(errorMessage);
-    }
-    Serial.print("flow scale factor = ");
-    Serial.println(flowScale);
-
-    Serial.print("flow offset = ");
-    Serial.println(flowOffset);
-
     sfmSf06.startO2ContinuousMeasurement();
+    Serial.print("flow");
+    Serial.print("\t");
+    Serial.println("temperature");
 }
 
 void loop() {
@@ -122,10 +104,8 @@ void loop() {
     error = sfmSf06.readMeasurementData(flow, temperature, status);
     delay(1000);
     if (!error) {
-        Serial.print("** ");
-        Serial.print("flow: ");
-        Serial.println(flow);
-        Serial.print("   temperature: ");
+        Serial.print(flow);
+        Serial.print("\t");
         Serial.println(temperature);
     }
 }
