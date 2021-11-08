@@ -54,7 +54,7 @@ void SensirionI2CSfmSf06::begin(TwoWire& i2cBus, uint8_t i2c_address) {
 uint16_t SensirionI2CSfmSf06::startO2ContinuousMeasurement() {
     uint16_t error = 0;
     uint8_t buffer[2];
-    error = readScaleOffsetFlow(CmdO2measurement, _flowScaleFactor, _flowOffset,
+    error = readScaleOffsetUnit(CmdO2measurement, _flowScaleFactor, _flowOffset,
                                 _flowUnit);
     if (error) {
         return error;
@@ -72,7 +72,7 @@ uint16_t SensirionI2CSfmSf06::startO2ContinuousMeasurement() {
 uint16_t SensirionI2CSfmSf06::startAirContinuousMeasurement() {
     uint16_t error = 0;
     uint8_t buffer[2];
-    error = readScaleOffsetFlow(CmdAirMeasurement, _flowScaleFactor,
+    error = readScaleOffsetUnit(CmdAirMeasurement, _flowScaleFactor,
                                 _flowOffset, _flowUnit);
     if (error) {
         return error;
@@ -90,7 +90,7 @@ uint16_t SensirionI2CSfmSf06::startAirContinuousMeasurement() {
 uint16_t SensirionI2CSfmSf06::startN2oContinuousMeasurement() {
     uint16_t error = 0;
     uint8_t buffer[2];
-    error = readScaleOffsetFlow(CmdNo2Measurement, _flowScaleFactor,
+    error = readScaleOffsetUnit(CmdNo2Measurement, _flowScaleFactor,
                                 _flowOffset, _flowUnit);
     if (error) {
         return error;
@@ -107,7 +107,7 @@ uint16_t SensirionI2CSfmSf06::startN2oContinuousMeasurement() {
 uint16_t SensirionI2CSfmSf06::startCo2ContinuousMeasurement() {
     uint16_t error = 0;
     uint8_t buffer[2];
-    error = readScaleOffsetFlow(CmdCo2Measurement, _flowScaleFactor,
+    error = readScaleOffsetUnit(CmdCo2Measurement, _flowScaleFactor,
                                 _flowOffset, _flowUnit);
     if (error) {
         return error;
@@ -126,7 +126,7 @@ SensirionI2CSfmSf06::startAirO2ContinuousMeasurement(uint16_t volumeFraction) {
     uint16_t error = 0;
     uint8_t buffer[5];
 
-    error = readScaleOffsetFlow(CmdAirO2Measurement, _flowScaleFactor,
+    error = readScaleOffsetUnit(CmdAirO2Measurement, _flowScaleFactor,
                                 _flowOffset, _flowUnit);
     if (error) {
         return error;
@@ -151,7 +151,7 @@ SensirionI2CSfmSf06::startNo2O2ContinuousMeasurement(uint16_t volumeFraction) {
     uint16_t error = 0;
     uint8_t buffer[5];
 
-    error = readScaleOffsetFlow(CmdNo2O2Measurement, _flowScaleFactor,
+    error = readScaleOffsetUnit(CmdNo2O2Measurement, _flowScaleFactor,
                                 _flowOffset, _flowUnit);
     if (error) {
         return error;
@@ -176,7 +176,7 @@ SensirionI2CSfmSf06::startC0202ContinuousMeasurement(uint16_t volumeFraction) {
     uint16_t error = 0;
     uint8_t buffer[5];
 
-    error = readScaleOffsetFlow(CmdCo2O2Measurement, _flowScaleFactor,
+    error = readScaleOffsetUnit(CmdCo2O2Measurement, _flowScaleFactor,
                                 _flowOffset, _flowUnit);
     if (error) {
         return error;
@@ -295,7 +295,7 @@ uint16_t SensirionI2CSfmSf06::configureAveraging(uint16_t averageWindow) {
                                                 *_i2cBus);
 }
 
-uint16_t SensirionI2CSfmSf06::readScaleOffsetFlow(CommandCode commandCode,
+uint16_t SensirionI2CSfmSf06::readScaleOffsetUnit(CommandCode commandCode,
                                                   int16_t& flowScaleFactor,
                                                   int16_t& flowOffset,
                                                   uint16_t& flowUnit) {

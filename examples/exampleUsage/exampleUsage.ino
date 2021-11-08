@@ -52,6 +52,11 @@ void setup() {
     uint16_t error;
     char errorMessage[256];
 
+    /**
+     * select the proper i2c address for your sensor
+     * see datasheet of your sensor
+     *
+     */
     sfmSf06.begin(Wire, ADDR_SFM3119);
 
     error = sfmSf06.stopContinuousMeasurement();
@@ -74,13 +79,12 @@ void setup() {
         errorToString(error, errorMessage, 256);
         Serial.println(errorMessage);
     } else {
-
-        Serial.print("SerialNumber:");
+        Serial.print("Product Identifer:");
+        Serial.println(productIdentifier);
+        Serial.print("Serial Number:");
         Serial.print("0x");
         for (size_t i = 0; i < serialNumberSize; i++) {
-            uint16_t value = serialNumber[i];
-            Serial.print(value < 4096 ? "0" : "");
-            Serial.print(value < 256 ? "0" : "");
+            uint8_t value = serialNumber[i];
             Serial.print(value < 16 ? "0" : "");
             Serial.print(value, HEX);
         }

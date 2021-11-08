@@ -1,17 +1,23 @@
 # Sensirion I2C SFM-SF06 Arduino Library
 
 This is the Sensirion SFM-SF06 library for Arduino using the
-modules I2C interface. This driver allows to control all sensors of the SFM-SF06 sensor family. This family includes the products SFM3003, SFM4300, SFM3119, SFM3013, SFM3019.
+modules I2C interface. This driver allows to control all sensors of the SFM-SF06 sensor family. 
+The provided examples use the sensor *SFM3119* 
+[<center><img src="images/sfm3119.png" width="300px"></center>](./images/sfm3119.png).
 
-[<center><img src="images/SFM4300.png" width="300px"></center>](https://www.sensirion.com/en/flow-sensors/)
+The connector layout of this senor is shown in the figure below:
+<center><img src="images/sfm3119_pinout.png" width="450px"></center>
 
-To learn more about the sensors of the familiy SFM-SF06 see the following data sheets:
-* Sensor [SFM3003](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3003_Datasheet.pdf)
-* Sensor [SFM4300](https://www.sensirion.com)
-* Sensor [SFM3119](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3119_Datasheet.pdf)
-* Sensor [SFM3013](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3013_Datasheet.pdf)
-* Sensor [SFM3019](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/5_Mass_Flow_Meters/Datasheets/Sensirion_Mass_Flow_Meters_SFM3019_Datasheet.pdf)
 
+Other supported products of the sfm-sf06 sensor family are:
+
+* SFM3003 
+* SFM4300 
+* SFM3119 
+* SFM3013 
+* SFM3019
+
+To learn more about the sensors of the familiy sfm-sf06 [see](https://www.sensirion.com/flow-sensors)
 
 
 # Installation
@@ -40,11 +46,12 @@ Note: Installation via the Arduino Library Manager is coming soon.
 
 The recommended voltage is 3.3V.
 
-2. Open the `exampleUsage` sample project within the Arduino IDE
+2. Open the `exampleUsage` sample project within the Arduino IDE via the application menu
 
-		File => examples => exampleUsage => exampleUsage.ino
+		File => Examples => Sensirion I2C SFM-SF06 => exampleUsage
 
       Select the proper i2c address for your product as input parameter for the method *begin(..)*
+      The list of i2c addresses is found in the header file *SensirionI2CSfmSf06.h*.
 
 3. Click the `Upload` button in the Arduino IDE or
 
