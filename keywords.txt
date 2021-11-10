@@ -1,0 +1,38 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+SensirionI2CSfmSf06	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+startO2ContinuousMeasurement	KEYWORD2
+startAirContinuousMeasurement	KEYWORD2
+startN2oContinuousMeasurement	KEYWORD2
+startCo2ContinuousMeasurement	KEYWORD2
+startAirO2ContinuousMeasurement	KEYWORD2
+startNo2O2ContinuousMeasurement	KEYWORD2
+startC0202ContinuousMeasurement	KEYWORD2
+readMeasurementData	KEYWORD2
+updateConcentrationSet	KEYWORD2
+updateConcentrationActivate	KEYWORD2
+stopContinuousMeasurement	KEYWORD2
+configureAveraging	KEYWORD2
+readScaleOffsetFlow	KEYWORD2
+enterSleep	KEYWORD2
+exitSleep	KEYWORD2
+readProductIdentifier	KEYWORD2
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+sfmSf06	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
