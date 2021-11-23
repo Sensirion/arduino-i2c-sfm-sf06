@@ -3,7 +3,7 @@
  *
  * I2C-Generator: 0.3.0
  * Yaml Version: 1.1.0
- * Template Version: 0.7.0-89-gb95f163
+ * Template Version: 0.7.0-99-gc51b50d
  */
 /*
  * Copyright (c) 2021, Sensirion AG
@@ -67,11 +67,11 @@
 typedef enum {
     CmdO2measurement = 0x3603,
     CmdAirMeasurement = 0x3608,
-    CmdNo2Measurement = 0x3615,
-    CmdCo2Measurement = 0x361E,
+    CmdN2OMeasurement = 0x3615,
+    CmdCO2Measurement = 0x361E,
     CmdAirO2Measurement = 0x3632,
-    CmdNo2O2Measurement = 0x3639,
-    CmdCo2O2Measurement = 0x3646
+    CmdN2OO2Measurement = 0x3639,
+    CmdCO2O2Measurement = 0x3646
 } CommandCode;
 
 class SensirionI2CSfmSf06 {
@@ -103,7 +103,7 @@ class SensirionI2CSfmSf06 {
      *
      * @note The first measurement result will be available after 12ms. Small
      * accuracy deviations (few % of reading) can occur during the first 30ms
-     * (including the 12ms)
+     * (including the 12ms).
      *
      * @return 0 on success, an error code otherwise
      */
@@ -125,14 +125,14 @@ class SensirionI2CSfmSf06 {
      *
      * @note The first measurement result will be available after 12ms. Small
      * accuracy deviations (few % of reading) can occur during the first 30ms
-     * (including the 12ms)
+     * (including the 12ms).
      *
      * @return 0 on success, an error code otherwise
      */
     uint16_t startAirContinuousMeasurement(void);
 
     /**
-     * startN2oContinuousMeasurement() - The sensor starts measuring both N₂O
+     * startN2OContinuousMeasurement() - The sensor starts measuring both N₂O
      * (*HeOx for SMF3012*) flow and temperature and provides a status word. All
      * three measurement results can be read out through one single I2C read
      * when the continuous measurement is running. The specific command code
@@ -142,14 +142,14 @@ class SensirionI2CSfmSf06 {
      *
      * @note The first measurement result will be available after 12ms. Small
      * accuracy deviations (few % of reading) can occur during the first 30ms
-     * (including the 12ms)
+     * (including the 12ms).
      *
      * @return 0 on success, an error code otherwise
      */
-    uint16_t startN2oContinuousMeasurement(void);
+    uint16_t startN2OContinuousMeasurement(void);
 
     /**
-     * startCo2ContinuousMeasurement() - The sensor starts measuring both CO₂
+     * startCO2ContinuousMeasurement() - The sensor starts measuring both CO₂
      * flow and temperature and provides a status word. All three measurement
      * results can be read out through one single I2C read when the continuous
      * measurement is running. The specific command code used for the start
@@ -160,11 +160,11 @@ class SensirionI2CSfmSf06 {
      *
      * @note The first measurement result will be available after 12ms. Small
      * accuracy deviations (few % of reading) can occur during the first 30ms
-     * (including the 12ms)
+     * (including the 12ms).
      *
      * @return 0 on success, an error code otherwise
      */
-    uint16_t startCo2ContinuousMeasurement(void);
+    uint16_t startCO2ContinuousMeasurement(void);
 
     /**
      * startAirO2ContinuousMeasurement() - The sensor starts measuring the
@@ -201,7 +201,7 @@ class SensirionI2CSfmSf06 {
      *
      * @return 0 on success, an error code otherwise
      */
-    uint16_t startNo2O2ContinuousMeasurement(uint16_t volumeFraction);
+    uint16_t startN2OO2ContinuousMeasurement(uint16_t volumeFraction);
 
     /**
      * startC0202ContinuousMeasurement() - The sensor starts measuring the  CO₂
@@ -217,7 +217,7 @@ class SensirionI2CSfmSf06 {
      *
      * @return 0 on success, an error code otherwise
      */
-    uint16_t startC0202ContinuousMeasurement(uint16_t volumeFraction);
+    uint16_t startCO2O2ContinuousMeasurement(uint16_t volumeFraction);
 
     /**
      * readMeasurementDataRaw() - After the command
@@ -281,7 +281,7 @@ class SensirionI2CSfmSf06 {
      * buffer such that the measurement data as described by the transfer
      * read_measurement_data are optained upon a subsequent read. This
      * instruction refers to *Reset-i2c address pointer*. For more details see
-     * data-sheet section *Update Concentration*
+     * data-sheet section *Update Concentration*.
      *
      * @return 0 on success, an error code otherwise
      */
@@ -378,7 +378,7 @@ class SensirionI2CSfmSf06 {
     /**
      * readProductIdentifier() - This command allows to read product identifier
      * and the serial number. The command can only be executed from the idle
-     * mode, i.e. when the sensor is not performing measurements
+     * mode, i.e. when the sensor is not performing measurements.
      *
      * @param productIdentifier 32-bit unique product and revision number
      *

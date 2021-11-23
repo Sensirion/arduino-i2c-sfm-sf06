@@ -3,7 +3,7 @@
  *
  * I2C-Generator: 0.3.0
  * Yaml Version: 1.1.0
- * Template Version: 0.7.0-80-gf4d3b1b
+ * Template Version: 0.7.0-99-gc51b50d
  */
 /*
  * Copyright (c) 2021, Sensirion AG
@@ -87,10 +87,10 @@ uint16_t SensirionI2CSfmSf06::startAirContinuousMeasurement() {
     return error;
 }
 
-uint16_t SensirionI2CSfmSf06::startN2oContinuousMeasurement() {
+uint16_t SensirionI2CSfmSf06::startN2OContinuousMeasurement() {
     uint16_t error = 0;
     uint8_t buffer[2];
-    error = readScaleOffsetUnit(CmdNo2Measurement, _flowScaleFactor,
+    error = readScaleOffsetUnit(CmdN2OMeasurement, _flowScaleFactor,
                                 _flowOffset, _flowUnit);
     if (error) {
         return error;
@@ -104,10 +104,10 @@ uint16_t SensirionI2CSfmSf06::startN2oContinuousMeasurement() {
     return error;
 }
 
-uint16_t SensirionI2CSfmSf06::startCo2ContinuousMeasurement() {
+uint16_t SensirionI2CSfmSf06::startCO2ContinuousMeasurement() {
     uint16_t error = 0;
     uint8_t buffer[2];
-    error = readScaleOffsetUnit(CmdCo2Measurement, _flowScaleFactor,
+    error = readScaleOffsetUnit(CmdCO2Measurement, _flowScaleFactor,
                                 _flowOffset, _flowUnit);
     if (error) {
         return error;
@@ -147,11 +147,11 @@ SensirionI2CSfmSf06::startAirO2ContinuousMeasurement(uint16_t volumeFraction) {
 }
 
 uint16_t
-SensirionI2CSfmSf06::startNo2O2ContinuousMeasurement(uint16_t volumeFraction) {
+SensirionI2CSfmSf06::startN2OO2ContinuousMeasurement(uint16_t volumeFraction) {
     uint16_t error = 0;
     uint8_t buffer[5];
 
-    error = readScaleOffsetUnit(CmdNo2O2Measurement, _flowScaleFactor,
+    error = readScaleOffsetUnit(CmdN2OO2Measurement, _flowScaleFactor,
                                 _flowOffset, _flowUnit);
     if (error) {
         return error;
@@ -172,11 +172,11 @@ SensirionI2CSfmSf06::startNo2O2ContinuousMeasurement(uint16_t volumeFraction) {
 }
 
 uint16_t
-SensirionI2CSfmSf06::startC0202ContinuousMeasurement(uint16_t volumeFraction) {
+SensirionI2CSfmSf06::startCO2O2ContinuousMeasurement(uint16_t volumeFraction) {
     uint16_t error = 0;
     uint8_t buffer[5];
 
-    error = readScaleOffsetUnit(CmdCo2O2Measurement, _flowScaleFactor,
+    error = readScaleOffsetUnit(CmdCO2O2Measurement, _flowScaleFactor,
                                 _flowOffset, _flowUnit);
     if (error) {
         return error;
