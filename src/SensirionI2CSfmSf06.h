@@ -81,7 +81,7 @@ class SensirionI2CSfmSf06 {
     /**
      * begin() - Initializes the SensirionI2CSfmSf06 class.
      *
-     * @param serial Arduino stream object to be communicated with.
+     * @param i2cBus Arduino stream object to use for communication.
      *
      * @param i2c_address i2c address of the selected product
      */
