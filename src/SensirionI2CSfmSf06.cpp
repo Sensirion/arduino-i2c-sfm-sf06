@@ -227,7 +227,7 @@ uint16_t SensirionI2CSfmSf06::readMeasurementData(float& flow,
     uint16_t error =
         readMeasurementDataRaw(intFlow, intTemperature, statusWord);
     if (!error) {
-        flow = (intFlow - _flowOffset) / _flowScaleFactor;
+        flow = (float)(intFlow - _flowOffset) / _flowScaleFactor;
         temperature = intTemperature / 200.0;
     }
     return error;
