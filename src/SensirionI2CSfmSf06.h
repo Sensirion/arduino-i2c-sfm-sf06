@@ -133,12 +133,14 @@ class SensirionI2CSfmSf06 {
 
     /**
      * startN2OContinuousMeasurement() - The sensor starts measuring both N₂O
-     * (*HeOx for SMF3012*) flow and temperature and provides a status word. All
-     * three measurement results can be read out through one single I2C read
-     * when the continuous measurement is running. The specific command code
-     * used for the start continuous measurement command selects the calibrated
-     * gas or binary gas mixture (lookup table) for the flow signal. Supported
-     * by products: - SFM4300 - SFM3013 (HeOx)
+     * (*HeOx for SFM3013-300-CLM *) flow and temperature and provides a status
+     * word. All three measurement results can be read out through one single
+     * I2C read when the continuous measurement is running. The specific command
+     * code used for the start continuous measurement command selects the
+     * calibrated gas or binary gas mixture (lookup table) for the flow signal.
+     * Supported by products:
+     * - SFM4300-20
+     * - SFM3013-300-CLM (HeOx)
      *
      * @note The first measurement result will be available after 12ms. Small
      * accuracy deviations (few % of reading) can occur during the first 30ms
@@ -156,7 +158,7 @@ class SensirionI2CSfmSf06 {
      * continuous measurement command selects the calibrated gas or binary gas
      * mixture (lookup table) for the flow signal.
      * Supported by products:
-     *  - SFM4300
+     *  - SFM4300-20
      *
      * @note The first measurement result will be available after 12ms. Small
      * accuracy deviations (few % of reading) can occur during the first 30ms
@@ -188,14 +190,14 @@ class SensirionI2CSfmSf06 {
 
     /**
      * startNo2O2ContinuousMeasurement() - The sensor starts measuring the  N₂O
-     * / O₂ flow and temperature and provides a status word. All three
-     * measurement results can be read out through one single I2C read when the
-     * continuous measurement is running. The specific command code used for the
-     * start continuous measurement command selects the calibrated gas or binary
-     * gas mixture (lookup table) for the flow signal.
-     * Supported by products:
-     *  - SFM4300
-     *  - SFM3013 (HeOx)
+     * / O₂ (*HeOx / O₂ for SFM3013-300-CLM *) flow and temperature and provides
+     * a status word. All three measurement results can be read out through one
+     * single I2C read when the continuous measurement is running. The specific
+     * command code used for the start continuous measurement command selects
+     * the calibrated gas or binary gas mixture (lookup table) for the flow
+     * signal. Supported by products:
+     *  - SFM4300-20
+     *  - SFM3013-300-CLM (HeOx)
      *
      * @param volumeFraction Volume fraction of O₂ in ‰.
      *
@@ -211,7 +213,7 @@ class SensirionI2CSfmSf06 {
      * start continuous measurement command selects the calibrated gas or binary
      * gas mixture (lookup table) for the flow signal.
      * Supported by products:
-     *  - SFM4300
+     *  - SFM4300-20
      *
      * @param volumeFraction Volume fraction of O₂ in ‰.
      *
