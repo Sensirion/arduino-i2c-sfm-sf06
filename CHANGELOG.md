@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - DATE TBD
+## [0.1.1] - 2023-06-01
+
+- Fix conversion in rawMeasuredData to avoid overflow for flow values > 32 l/min
+
+## [0.1.0] 
 
 Initial release
 
