@@ -6,32 +6,45 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-SensirionI2CSfmSf06	KEYWORD1
+SensirionI2cSfmSf06	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
+
 startO2ContinuousMeasurement	KEYWORD2
 startAirContinuousMeasurement	KEYWORD2
-startN2oContinuousMeasurement	KEYWORD2
-startCo2ContinuousMeasurement	KEYWORD2
-startAirO2ContinuousMeasurement	KEYWORD2
-startNo2O2ContinuousMeasurement	KEYWORD2
-startC0202ContinuousMeasurement	KEYWORD2
+startN2OContinuousMeasurement	KEYWORD2
+startCO2ContinuousMeasurement	KEYWORD2
+startN2OO2ContinuousMeasurement	KEYWORD2
+startCO2O2ContinuousMeasurement	KEYWORD2
+readMeasurementDataRaw	KEYWORD2
 readMeasurementData	KEYWORD2
+updateConcentration	KEYWORD2
+llstartO2ContinuousMeasurement	KEYWORD2
+llstartAirContinuousMeasurement	KEYWORD2
+llstartN2OContinuousMeasurement	KEYWORD2
+llstartCO2ContinuousMeasurement	KEYWORD2
+startAirO2ContinuousMeasurement	KEYWORD2
+llstartN2OO2ContinuousMeasurement	KEYWORD2
+llstartCO2O2ContinuousMeasurement	KEYWORD2
+llreadMeasurementData	KEYWORD2
 updateConcentrationSet	KEYWORD2
 updateConcentrationActivate	KEYWORD2
 stopContinuousMeasurement	KEYWORD2
 configureAveraging	KEYWORD2
-readScaleOffsetFlow	KEYWORD2
+readScaleOffsetUnit	KEYWORD2
 enterSleep	KEYWORD2
 exitSleep	KEYWORD2
 readProductIdentifier	KEYWORD2
+signalTemperature	KEYWORD2
+signalFlow	KEYWORD2
+
 #######################################
 # Instances (KEYWORD2)
 #######################################
 
-sfmSf06	KEYWORD2
+sensor	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
