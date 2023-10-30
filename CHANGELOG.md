@@ -7,11 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2023-10-09
-
-- Update driver with newly generated improved code.
-- Update Readme with better instructions for Arduino and ESP32
-
 ## [0.1.1] - 2023-06-01
 
 - Fix conversion in rawMeasuredData to avoid overflow for flow values > 32 l/min
@@ -19,3 +14,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] 
 
 Initial release
+
