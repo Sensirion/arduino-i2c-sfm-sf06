@@ -80,6 +80,18 @@ int16_t SensirionI2cSfmSf06::startAirContinuousMeasurement() {
     return localError;
 }
 
+int16_t
+SensirionI2cSfmSf06::startAirO2ContinuousMeasurement(uint16_t volumeFraction) {
+    int16_t localError = 0;
+    localError = readScaleOffsetUnit(START_AIR_O2_CONTINUOUS_MEASUREMENT_CMD_ID,
+                                     _flowScaleFactor, _flowOffset, _flowUnit);
+    if (localError != NO_ERROR) {
+        return localError;
+    }
+    localError = llstartAirO2ContinuousMeasurement(volumeFraction);
+    return localError;
+}
+
 int16_t SensirionI2cSfmSf06::startN2OContinuousMeasurement() {
     int16_t localError = 0;
     localError = readScaleOffsetUnit(START_N2O_CONTINUOUS_MEASUREMENT_CMD_ID,
@@ -216,8 +228,8 @@ int16_t SensirionI2cSfmSf06::llstartCO2ContinuousMeasurement() {
     return localError;
 }
 
-int16_t
-SensirionI2cSfmSf06::startAirO2ContinuousMeasurement(uint16_t volumeFraction) {
+int16_t SensirionI2cSfmSf06::llstartAirO2ContinuousMeasurement(
+    uint16_t volumeFraction) {
     int16_t localError = NO_ERROR;
     uint8_t* buffer_ptr = communication_buffer;
     SensirionI2CTxFrame txFrame =
