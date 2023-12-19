@@ -103,6 +103,15 @@ class SensirionI2cSfmSf06 {
     /**
      * @brief Start measurement and update internal state
      *
+     * @param[in] volumeFraction Volume fraction of O₂ in ‰.
+     *
+     * @return error_code 0 on success, an error code otherwise.
+     */
+    int16_t startAirO2ContinuousMeasurement(uint16_t volumeFraction);
+
+    /**
+     * @brief Start measurement and update internal state
+     *
      * Start NO2 measurement and readout the corresponding scale factor from the
      * sensor
      *
@@ -294,7 +303,7 @@ class SensirionI2cSfmSf06 {
      *
      * @return error_code 0 on success, an error code otherwise.
      */
-    int16_t startAirO2ContinuousMeasurement(uint16_t volumeFraction);
+    int16_t llstartAirO2ContinuousMeasurement(uint16_t volumeFraction);
 
     /**
      * @brief Start continuous measurement of N₂O / O₂ mixture.
