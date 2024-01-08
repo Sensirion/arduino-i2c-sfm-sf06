@@ -186,7 +186,7 @@ You will find pinout schematics for recommended board models below:
 
   
    The provided example is working with a SFM4300, I²C address 0x2A.
-   In order to use the code with another product or I²C address you need to change it in the code of `exampleUsage`. 
+   In order to use the code with another product or I²C address you need to change it in the code of `examples/exampleUsage`. 
    You find the list with pre-defined addresses in `src/SensirionI2CSfmSf06.h`.
 
 
