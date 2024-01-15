@@ -18,6 +18,7 @@ startN2OContinuousMeasurement	KEYWORD2
 startCO2ContinuousMeasurement	KEYWORD2
 startN2OO2ContinuousMeasurement	KEYWORD2
 startCO2O2ContinuousMeasurement	KEYWORD2
+startAirO2ContinuousMeasurement	KEYWORD2
 readMeasurementDataRaw	KEYWORD2
 readMeasurementData	KEYWORD2
 updateConcentration	KEYWORD2
@@ -25,7 +26,7 @@ llstartO2ContinuousMeasurement	KEYWORD2
 llstartAirContinuousMeasurement	KEYWORD2
 llstartN2OContinuousMeasurement	KEYWORD2
 llstartCO2ContinuousMeasurement	KEYWORD2
-startAirO2ContinuousMeasurement	KEYWORD2
+llstartAirO2ContinuousMeasurement	KEYWORD2
 llstartN2OO2ContinuousMeasurement	KEYWORD2
 llstartCO2O2ContinuousMeasurement	KEYWORD2
 llreadMeasurementData	KEYWORD2

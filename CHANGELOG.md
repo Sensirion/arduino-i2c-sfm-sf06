@@ -1,26 +1,36 @@
-# Changelog
-All notable changes to this project will be documented in this file.
+# CHANGELOG
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-
 ## [Unreleased]
 
-## [1.0.0] - 2023-10-30
+## [3.0.0] - 2024-1-10
 
 ### Changed
 
-- Update code with driver generator version 0.34.0
-- Change include from SensirionI2CSfmSf06.h to SensirionI2cSfmSf06.h
+- Use new changelog format
+- Add missing User-API function
+- Add prefix for global symbols in C/Cpp code
+- Renaming of functions
+  
+## [0.1.1] - 2023-6-1
 
-## [0.1.1] - 2023-06-01
+### Changed
+
+- Update readme
 
 ### Fixed
 
-- Fix conversion in rawMeasuredData to avoid overflow for flow values > 32 l/min
+- Fix conversion function to avoid overflow
+  
+## [0.1.0] - 2021-10-27
 
-## [0.1.0] 
+### Added
 
-Initial release
+- Provide initial version for SFM4300, SFM3xxx sensors
 
+[Unreleased]: https://github.com/Sensirion/arduino-i2c-sfm-sf06/compare/3.0.0...HEAD
+[3.0.0]: https://github.com/Sensirion/arduino-i2c-sfm-sf06/compare/0.1.1...3.0.0
+[0.1.1]: https://github.com/Sensirion/arduino-i2c-sfm-sf06/compare/0.1.0...0.1.1
+[0.1.0]: https://github.com/Sensirion/arduino-i2c-sfm-sf06/releases/tag/0.1.0
