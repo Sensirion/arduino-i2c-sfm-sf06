@@ -5,6 +5,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1] - 2024-4-18
+- Change Arduino Library Name to Sensirion I2C SFM-SF06
+
 ## [3.0.0] - 2024-1-10
 
 ### Changed
